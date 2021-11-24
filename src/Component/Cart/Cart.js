@@ -1,10 +1,17 @@
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import classes from './Cart.module.css';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../store/CartProvider";
+import UserForm from "./UserForm";
 
 const Cart = (props)=>{
+
+    const [showUserForm,setShowUserForm] = useState(false);
+
+    const onClickOrder= ()=>{
+        setShowUserForm(true)
+    }
 
 const ctx = useContext(CartContext)
 
@@ -35,9 +42,13 @@ return <CartItem
             <span>Total Amount</span>
             <span>${ctx.totalAmount}</span>
         </div>
+        {!showUserForm &&
         <div className={classes.actions}>
             <button className={classes['button--alt']} onClick = {props.onClose}>Close</button>
+            <button onClick={onClickOrder} >Order</button>
         </div>
+}
+        {showUserForm && <UserForm onCancel = {props.onClose} ordredMeamls={ctx.item}/>}
     </Modal>)
 }
 

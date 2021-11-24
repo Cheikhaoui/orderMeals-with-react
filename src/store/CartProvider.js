@@ -4,7 +4,8 @@ export const CartContext = React.createContext({
     item : [],
     totalAmount : 0,
     addItem : (item)=>{},
-    removeItem : (id)=>{}
+    removeItem : (id)=>{},
+    reset : ()=>{}
 })
 const initialState = {
     item : [],
@@ -77,11 +78,16 @@ const CartProvider = (props)=>{
             id:id
         })
     }
+
+    const reset = ()=>{
+        dispatchAction({type:'Reset'})
+    }
     const ctx = {
             item : cartState.item,
             totalAmount : cartState.totalAmount,
             addItem : addItem,
-            removeItem : deleteItem
+            removeItem : deleteItem,
+            reset:reset
     }
 
     return(
